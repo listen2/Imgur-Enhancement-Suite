@@ -28,6 +28,7 @@
 
 	function create_tagline(name) {
 		tagline = document.createElement("span");
+		tagline.className = "ies_tagline";
 		r = vote_records[name] || 0;
 		n = document.createElement("span");
 		n.id = "voterecord_" + name;
@@ -73,9 +74,12 @@
 	}
 
 	function tag_submitter(user) {
+		if (user.nextSibling && user.nextSibling.className === "ies_tagline")
+			return false;
 		var tagline = create_tagline(user.innerText);
 		tagline.children[0].id = "submitter_vote_record";
 		user.parentNode.insertBefore(tagline, user.nextSibling);
+		return true;
 	}
 
 	function handle_upvote_comment(e) {
@@ -127,12 +131,25 @@
 					submitter_name = e.target.children[1];
 					submitter_name.style.display = "inherit";
 					submitter_name.style.width = "inherit";*/
+
+					//attempt this every time to ensure it gets done on non-initial page loads. ugh.
+					//add tag to submitter's name
+					subm = document.getElementById("stats-submit-source");
+					if (subm && subm.children.length > 0) {
+						if (tag_submitter(document.getElementById("stats-submit-source").children[1])) {
+							submitter_name = document.getElementsByClassName("url-truncated")[0];
+							submitter_name.style.display = "inherit";
+							submitter_name.style.width = "inherit";
+						}
+					}
+
 				}
 			}
 		},
 		false
 	);
 
+	/*
 	//add tag to submitter's name
 	subm = document.getElementById("stats-submit-source");
 	if (subm && subm.children.length > 0) {
@@ -140,7 +157,7 @@
 		submitter_name = document.getElementsByClassName("url-truncated")[0];
 		submitter_name.style.display = "inherit";
 		submitter_name.style.width = "inherit";
-	}
+	}*/
 
 	//attach vote button handlers
 	var arrows = document.getElementsByClassName("arrow");
