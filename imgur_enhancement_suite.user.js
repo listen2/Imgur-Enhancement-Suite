@@ -39,6 +39,7 @@
 		t = user_tags[name] || "tag";
 		m = document.createElement("span");
 		m.innerHTML = t;
+		m.username = name;
 		m.style.backgroundColor = "#222";
 		m.style.border = "1px solid #555";
 		m.style.paddingLeft = "2px";
