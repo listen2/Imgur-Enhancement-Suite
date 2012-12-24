@@ -19,7 +19,7 @@
 	}
 
 	function change_tag_text(e) {
-		name = e.target.parentNode.parentNode.children[0].innerText;
+		name = e.target.username;
 		text = prompt("New tag for @" + name, e.target.innerText);
 		e.target.innerText = text;
 		user_tags[name] = text;
