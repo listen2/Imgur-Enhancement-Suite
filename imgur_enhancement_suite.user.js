@@ -31,7 +31,7 @@
 		tagline.className = "ies_tagline";
 		r = vote_records[name] || 0;
 		n = document.createElement("span");
-		n.id = "voterecord_" + name;
+		n.name = "voterecord_" + name;
 		if (r) {		//don't show anything if record is zero
 			n.innerHTML = "[" + r + "]";
 			n.style.color = get_color(r);
@@ -89,8 +89,10 @@
 			vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
 		else
 			vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-		countelement = document.getElementById("voterecord_" + name);
-		countelement.innerText = "[" + vote_records[name] + "]";
+		counts = document.getElementsByName("voterecord_" + name);
+		for (var i = 0; i < counts.length; i++) {
+			counts[i].innerText = "[" + vote_records[name] + "]";
+		}
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_comment(e) {
@@ -99,8 +101,10 @@
 			vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
 		else
 			vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-		countelement = document.getElementById("voterecord_" + name);
-		countelement.innerText = "[" + vote_records[name] + "]";
+		counts = document.getElementsByName("voterecord_" + name);
+		for (var i = 0; i < counts.length; i++) {
+			counts[i].innerText = "[" + vote_records[name] + "]";
+		}
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_upvote_submission(e) {
