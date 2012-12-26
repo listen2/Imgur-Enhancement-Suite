@@ -31,7 +31,7 @@
 		tagline.className = "ies_tagline";
 		r = vote_records[name] || 0;
 		n = document.createElement("span");
-		n.name = "voterecord_" + name;
+		n.setAttribute("name", "voterecord_" + name);
 		if (r) {		//don't show anything if record is zero
 			n.innerHTML = "[" + r + "]";
 			n.style.color = get_color(r);
