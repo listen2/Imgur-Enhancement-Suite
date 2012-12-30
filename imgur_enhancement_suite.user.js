@@ -71,8 +71,10 @@
 				//attach arrow click handlers
 				user.parentNode.parentNode.previousSibling.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
 				user.parentNode.parentNode.previousSibling.previousSibling.children[0].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.previousSibling.previousSibling.children[0].pushed = user.parentNode.parentNode.previousSibling.previousSibling.children[0].className.indexOf("pushed") !== -1;
 				user.parentNode.parentNode.previousSibling.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
 				user.parentNode.parentNode.previousSibling.previousSibling.children[1].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.previousSibling.previousSibling.children[1].pushed = user.parentNode.parentNode.previousSibling.previousSibling.children[1].className.indexOf("pushed") !== -1;
 			} else {
 				tag_comment(t.children[i]);
 			}
@@ -97,21 +99,33 @@
 
 	//FIXME: don't rely on setTimeout before calling this
 	function handle_vote(name, up, down, upvote) {
-		nowup = up.className.indexOf("pushed") !== -1;
-		nowdown = down.className.indexOf("pushed") !== -1;
 		if (upvote === true) {
-			if (nowup === true) {		//normal upvote
-				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-			//} else if (nowdown) {		//can't happen
-			} else {							//un-upvote
+			if (up.pushed === true) {    //un-upvote
 				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
+				up.pushed = false;
+				down.pushed = false; //unnecessary?
+			} else if (down.pushed) {    //change downvote to upvote
+				vote_records[name] = vote_records[name] ? vote_records[name]+2 : 1;
+				up.pushed = true;
+				down.pushed = false;
+			} else {              //normal upvote
+				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
+				up.pushed = true;
+				down.pushed = false; //unnecessary?
 			}
 		} else {
-			if (nowdown === true) {		//normal downvote
-				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-			//} else if (nowup) {			//can't happen
-			} else {							//un-downvote
+			if (down.pushed === true) {    //un-downvote
 				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
+				down.pushed = false;
+				up.pushed = false; //unnecessary?
+			} else if (up.pushed) {      //change upvote to downvote
+				vote_records[name] = vote_records[name] ? vote_records[name]-2 : -1;
+				down.pushed = true;
+				up.pushed = false;
+			} else {              //normal downvote
+				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
+				down.pushed = true;
+				up.pushed = false; //unnecessary?
 			}
 		}
 		update_vote_records(name);
@@ -120,19 +134,35 @@
 
 	function handle_upvote_comment(e) {
 		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].textContent;
-		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
+		up = e.target;
+		down = e.target.parentNode.children[1];
+		up.setAttribute("pushed", true);
+		down.setAttribute("pushed", false);
+		setTimeout(function() { handle_vote(name, up, down, true); }, 100);
 	}
 	function handle_downvote_comment(e) {
 		name = e.target.username;
-		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
+		up = e.target.parentNode.children[0];
+		down = e.target;
+		up.setAttribute("pushed", false);
+		down.setAttribute("pushed", true);
+		setTimeout(function() { handle_vote(name, up, down, false); }, 100);
 	}
 	function handle_upvote_submission(e) {
 		name = submitter_name.textContent;
-		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
+		up = e.target;
+		down = e.target.parentNode.children[1];
+		up.setAttribute("pushed", true);
+		down.setAttribute("pushed", false);
+		setTimeout(function() { handle_vote(name, up, down, true); }, 100);
 	}
 	function handle_downvote_submission(e) {
 		name = submitter_name.textContent;
-		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
+		up = e.target.parentNode.children[0];
+		down = e.target;
+		up.setAttribute("pushed", false);
+		down.setAttribute("pushed", true);
+		setTimeout(function() { handle_vote(name, up, down, false); }, 100);
 	}
 
 	//entry
@@ -181,9 +211,12 @@
 	//attach vote button handlers
 	var arrows = document.getElementsByClassName("arrow");
 	for (var i = 0; i < arrows.length; i++) {
-		if (arrows[i].className.indexOf("up") !== -1)
+		if (arrows[i].className.indexOf("up") !== -1) {
 			arrows[i].addEventListener("click", handle_upvote_submission);
-		else
+			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
+		} else {
 			arrows[i].addEventListener("click", handle_downvote_submission);
+			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
+		}
 	}
 })();
