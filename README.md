@@ -13,15 +13,17 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
 
 * Chrome: Save the .user.js file. Open ``chrome://chrome/extensions/``. Drag and drop the .user.js file into that page.
 
-* Chrome on Android: use https://play.google.com/store/apps/details?id=net.biniok.tampermonkey&hl=en (untested—please let me know how it works)
-
 * Internet Explorer: nope
 
 * Safari: http://www.simplehelp.net/2007/11/14/how-to-run-greasemonkey-scripts-in-safari/ (untested—please let me know how it works)
 
-* Android Browser: use https://play.google.com/store/apps/details?id=net.biniok.tampermonkey&hl=en (untested—please let me know how it works)
+* Opera Mobile: http://my.opera.com/community/forums/topic.dml?id=1125542 (untested—please let me know how it works)
 
-* iPad and maybe iPhone: http://userscripts.org/topics/70361 (untested—please let me know how it works)
+* Firefox Mobile: use https://addons.mozilla.org/en-us/firefox/addon/scriptish/ (untested—please let me know how it works)
+
+* Android Browser: I dunno, but there must be some way.
+
+* iPad and iPhone: http://userscripts.org/topics/70361 (untested—please let me know how it works)
 
 ###FAQ
 
