@@ -119,7 +119,7 @@
 	}
 	function handle_downvote_comment(e) {
 		name = e.target.username;
-		handle_vote(name, e.target, e.target.parentNode.children[0], false);
+		handle_vote(name, e.target.parentNode.children[0], e.target, false);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_upvote_submission(e) {
