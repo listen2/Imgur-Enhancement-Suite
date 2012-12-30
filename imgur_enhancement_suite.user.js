@@ -20,12 +20,12 @@
 
 	function change_tag_text(e) {
 		name = e.target.username;
-		text = prompt("New tag for @" + name, e.target.innerText);
+		text = prompt("New tag for @" + name, e.target.textContent);
 		if (text === null)
 			return;
 		tags = document.getElementsByName("usertag_" + name);
 		for (var i = 0; i < tags.length; i++) {
-			tags[i].innerText = text;
+			tags[i].textContent = text;
 		}
 		user_tags[name] = text;
 		localStorage["user_tags"] = JSON.stringify(user_tags);
@@ -57,7 +57,7 @@
 		c = document.createTextNode(" ");
 		tagline.insertBefore(c, tagline.firstChild);
 		c = document.createElement("span");
-		c.innerText = " :";
+		c.textContent = " :";
 		tagline.appendChild(c);
 		return tagline;
 	}
@@ -66,13 +66,13 @@
 		for (var i = 0; i < t.children.length; i++) {
 			if (t.children[i].tagName === "DIV" && t.children[i].className === "author") {
 				user = t.children[i].children[0];
-				tagline = create_tagline(user.innerText);
+				tagline = create_tagline(user.textContent);
 				user.parentNode.insertBefore(tagline, user.nextSibling);
 				//attach arrow click handlers
 				user.parentNode.parentNode.previousSibling.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
-				user.parentNode.parentNode.previousSibling.previousSibling.children[0].username = user.innerText;	//for convenience
+				user.parentNode.parentNode.previousSibling.previousSibling.children[0].username = user.textContent;	//for convenience
 				user.parentNode.parentNode.previousSibling.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].username = user.innerText;	//for convenience
+				user.parentNode.parentNode.previousSibling.previousSibling.children[1].username = user.textContent;	//for convenience
 			} else {
 				tag_comment(t.children[i]);
 			}
@@ -82,8 +82,8 @@
 	function tag_submitter(user) {
 		if (user.nextSibling && user.nextSibling.className === "ies_tagline")
 			return false;
-		var tagline = create_tagline(user.innerText);
-		tagline.children[0].id = "voterecord_" + user.innerText;
+		var tagline = create_tagline(user.textContent);
+		tagline.children[0].id = "voterecord_" + user.textContent;
 		user.parentNode.insertBefore(tagline, user.nextSibling);
 		return true;
 	}
@@ -91,7 +91,7 @@
 	function update_vote_records(name) {
 		counts = document.getElementsByName("voterecord_" + name);
 		for (var i = 0; i < counts.length; i++) {
-			counts[i].innerText = "[" + vote_records[name] + "]";
+			counts[i].textContent = "[" + vote_records[name] + "]";
 		}
 	}
 
@@ -119,7 +119,7 @@
 	}
 
 	function handle_upvote_comment(e) {
-		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].innerText;
+		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].textContent;
 		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
 	}
 	function handle_downvote_comment(e) {
@@ -127,11 +127,11 @@
 		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
 	}
 	function handle_upvote_submission(e) {
-		name = submitter_name.innerText;
+		name = submitter_name.textContent;
 		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
 	}
 	function handle_downvote_submission(e) {
-		name = submitter_name.innerText;
+		name = submitter_name.textContent;
 		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
 	}
 
