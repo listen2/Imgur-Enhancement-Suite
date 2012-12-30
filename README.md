@@ -11,7 +11,15 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
 
 * Mozilla: http://greasemonkey.mozdev.org/using.html
 
-* Chrome: http://userscripts.org/topics/113176
+* Chrome: http://userscripts.org/topics/113176 or https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en
+
+* Internet Explorer: nope
+
+* Safari: http://www.simplehelp.net/2007/11/14/how-to-run-greasemonkey-scripts-in-safari/
+
+* Android Browser: https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en
+
+* iPad and maybe iPhone: http://userscripts.org/topics/70361
 
 ###FAQ
 
