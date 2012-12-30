@@ -11,7 +11,7 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
 
 * Mozilla: Install the [GreaseMonkey extentsion](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/), then click the link to the file in the paragraph above.
 
-* Chrome: http://userscripts.org/topics/113176 or use https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en
+* Chrome: Save the .user.js file. Open ``chrome://chrome/extensions/``. Drag and drop the .user.js file into that page.
 
 * Chrome on Android: use https://play.google.com/store/apps/details?id=net.biniok.tampermonkey&hl=en (untested—please let me know how it works)
 
