@@ -77,7 +77,7 @@
 		if (user.nextSibling && user.nextSibling.className === "ies_tagline")
 			return false;
 		var tagline = create_tagline(user.innerText);
-		tagline.children[0].id = "submitter_vote_record";
+		tagline.children[0].id = "voterecord_" + user.innerText;
 		user.parentNode.insertBefore(tagline, user.nextSibling);
 		return true;
 	}
@@ -87,6 +87,28 @@
 		for (var i = 0; i < counts.length; i++) {
 			counts[i].innerText = "[" + vote_records[name] + "]";
 		}
+	}
+
+	//for some reason, this handler seems to run after the "pushed" class has been assigned/removed
+	function handle_vote_submission(name, up, down, upvote) {
+		nowup = up.className.indexOf("pushed") !== -1;
+		nowdown = down.className.indexOf("pushed") !== -1;
+		if (upvote === true) {
+			if (nowup === true) {		//normal upvote
+				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
+			//} else if (nowdown) {		//can't happen
+			} else {							//un-upvote
+				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
+			}
+		} else {
+			if (nowdown === true) {		//normal downvote
+				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
+			//} else if (nowup) {			//can't happen
+			} else {							//un-downvote
+				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
+			}
+		}
+		update_vote_records(name);
 	}
 
 	function handle_vote(name, up, down, upvote) {
@@ -124,11 +146,13 @@
 	}
 	function handle_upvote_submission(e) {
 		name = submitter_name.innerText;
-		vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-		document.getElementById("submitter_vote_record").innerText = "[" + vote_records[name] + "]";
+		handle_vote(name, e.target, e.target.parentNode.children[1], true);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_submission(e) {
+		name = submitter_name.innerText;
+		handle_vote(name, e.target.parentNode.children[0], e.target, false);
+		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 
 	//entry
