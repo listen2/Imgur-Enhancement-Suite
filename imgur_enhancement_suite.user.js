@@ -10,7 +10,7 @@
 		//full green:	133, 191, 37
 		//mid:			170, 170, 170
 		//full red:		238, 68, 68
-		x = Math.max(-25, Math.min(50, r)) / 100;		//confine x to (-1, 1)
+		x = Math.max(-25, Math.min(25, r)) / 25;		//confine x to (-1, 1)
 		if (r > 0) {
 			return "rgb(" + Math.floor(170-(x*37)) + ", " + Math.floor(170+(x*21)) + ", " + Math.floor(170-(x*133)) + ")";
 		} else {
@@ -21,6 +21,8 @@
 	function change_tag_text(e) {
 		name = e.target.username;
 		text = prompt("New tag for @" + name, e.target.innerText);
+		if (text === null)
+			return;
 		tags = document.getElementsByName("usertag_" + name);
 		for (var i = 0; i < tags.length; i++) {
 			tags[i].innerText = text;
