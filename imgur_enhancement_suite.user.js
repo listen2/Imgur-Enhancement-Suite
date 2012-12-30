@@ -10,7 +10,7 @@
 		//full green:	133, 191, 37
 		//mid:			170, 170, 170
 		//full red:		238, 68, 68
-		x = Math.max(-100, Math.min(100, r)) / 100;		//confine x to (-1, 1)
+		x = Math.max(-25, Math.min(50, r)) / 100;		//confine x to (-1, 1)
 		if (r > 0) {
 			return "rgb(" + Math.floor(170-(x*37)) + ", " + Math.floor(170+(x*21)) + ", " + Math.floor(170-(x*133)) + ")";
 		} else {
@@ -65,7 +65,7 @@
 				//attach arrow click handlers
 				user.parentNode.parentNode.previousSibling.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
 				user.parentNode.parentNode.previousSibling.previousSibling.children[0].username = user.innerText;	//for convenience
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].addEventListener("click", handle_upvote_comment)
+				user.parentNode.parentNode.previousSibling.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
 				user.parentNode.parentNode.previousSibling.previousSibling.children[1].username = user.innerText;	//for convenience
 			} else {
 				tag_comment(t.children[i]);
@@ -82,29 +82,44 @@
 		return true;
 	}
 
-	function handle_upvote_comment(e) {
-		//TODO nope wrong. There are four possible state changes.
-		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].innerText;
-		if (e.target.className.indexOf("pushed") !== -1)
-			vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-		else
-			vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
+	function update_vote_records(name) {
 		counts = document.getElementsByName("voterecord_" + name);
 		for (var i = 0; i < counts.length; i++) {
 			counts[i].innerText = "[" + vote_records[name] + "]";
 		}
+	}
+
+	function handle_vote(name, up, down, upvote) {
+		wasup = up.className.indexOf("pushed") !== -1;
+		wasdown = down.className.indexOf("pushed") !== -1;
+		if (upvote === true) {
+			if (wasup === true) {		//un-upvote
+				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
+			} else if (wasdown) {		//change downvote to upvote
+				vote_records[name] = vote_records[name] ? vote_records[name]+2 : 1;
+			} else {							//normal upvote
+				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
+			}
+		} else {
+			if (wasdown === true) {		//un-downvote
+				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
+			} else if (wasup) {			//change upvote to downvote
+				vote_records[name] = vote_records[name] ? vote_records[name]-2 : -1;
+			} else {							//normal downvote
+				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
+			}
+		}
+		update_vote_records(name);
+	}
+
+	function handle_upvote_comment(e) {
+		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].innerText;
+		handle_vote(name, e.target, e.target.parentNode.children[1], true);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_comment(e) {
 		name = e.target.username;
-		if (e.target.className.indexOf("pushed") !== -1)
-			vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-		else
-			vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-		counts = document.getElementsByName("voterecord_" + name);
-		for (var i = 0; i < counts.length; i++) {
-			counts[i].innerText = "[" + vote_records[name] + "]";
-		}
+		handle_vote(name, e.target, e.target.parentNode.children[0], false);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_upvote_submission(e) {
@@ -114,10 +129,6 @@
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_submission(e) {
-	}
-	function handle_upvote(e) {
-	}
-	function handle_downvote(e) {
 	}
 
 	//entry
