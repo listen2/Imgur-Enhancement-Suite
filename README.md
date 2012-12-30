@@ -21,8 +21,6 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
 
 * Firefox Mobile: use https://addons.mozilla.org/en-us/firefox/addon/scriptish/ (untested—please let me know how it works)
 
-* Android Browser: I dunno, but there must be some way.
-
 * iPad and iPhone: http://userscripts.org/topics/70361 (untested—please let me know how it works)
 
 ###FAQ
