@@ -115,27 +115,24 @@
 			}
 		}
 		update_vote_records(name);
+		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 
 	function handle_upvote_comment(e) {
 		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].innerText;
 		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
-		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_comment(e) {
 		name = e.target.username;
 		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
-		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_upvote_submission(e) {
 		name = submitter_name.innerText;
 		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
-		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_submission(e) {
 		name = submitter_name.innerText;
 		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
-		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 
 	//entry
