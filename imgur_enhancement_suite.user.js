@@ -95,8 +95,8 @@
 		}
 	}
 
-	//for some reason, this handler seems to run after the "pushed" class has been assigned/removed
-	function handle_vote_submission(name, up, down, upvote) {
+	//FIXME: don't rely on setTimeout before calling this
+	function handle_vote(name, up, down, upvote) {
 		nowup = up.className.indexOf("pushed") !== -1;
 		nowdown = down.className.indexOf("pushed") !== -1;
 		if (upvote === true) {
@@ -117,47 +117,24 @@
 		update_vote_records(name);
 	}
 
-	function handle_vote(name, up, down, upvote) {
-		wasup = up.className.indexOf("pushed") !== -1;
-		wasdown = down.className.indexOf("pushed") !== -1;
-		if (upvote === true) {
-			if (wasup === true) {		//un-upvote
-				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-			} else if (wasdown) {		//change downvote to upvote
-				vote_records[name] = vote_records[name] ? vote_records[name]+2 : 1;
-			} else {							//normal upvote
-				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-			}
-		} else {
-			if (wasdown === true) {		//un-downvote
-				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-			} else if (wasup) {			//change upvote to downvote
-				vote_records[name] = vote_records[name] ? vote_records[name]-2 : -1;
-			} else {							//normal downvote
-				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-			}
-		}
-		update_vote_records(name);
-	}
-
 	function handle_upvote_comment(e) {
 		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].innerText;
-		handle_vote(name, e.target, e.target.parentNode.children[1], true);
+		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_comment(e) {
 		name = e.target.username;
-		handle_vote(name, e.target.parentNode.children[0], e.target, false);
+		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_upvote_submission(e) {
 		name = submitter_name.innerText;
-		handle_vote_submission(name, e.target, e.target.parentNode.children[1], true);
+		setTimeout(function() { handle_vote(name, e.target, e.target.parentNode.children[1], true); }, 100);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 	function handle_downvote_submission(e) {
 		name = submitter_name.innerText;
-		handle_vote_submission(name, e.target.parentNode.children[0], e.target, false);
+		setTimeout(function() { handle_vote(name, e.target.parentNode.children[0], e.target, false); }, 100);
 		localStorage["vote_records"] = JSON.stringify(vote_records);
 	}
 
