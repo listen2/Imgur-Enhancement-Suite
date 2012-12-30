@@ -9,7 +9,8 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
 
 * Opera: http://www.opera.com/docs/userjs/using/
 
-* Mozilla: Install the [GreaseMonkey extentsion](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/), then click the link to the file in the paragraph above.
+* ~~Mozilla: Install the [GreaseMonkey extentsion](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/), then click the link to the file in the paragraph above.~~
+    * sorry, it isn't working correctly on Mozilla yet
 
 * Chrome: http://userscripts.org/topics/113176 or https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en
 
