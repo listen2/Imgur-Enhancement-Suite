@@ -5,7 +5,7 @@ Imgur Enhancement Suite is a browser add-on (userscript) that adds some features
 
 ###Installation
 
-IES is a userscript, so it can run on any fully-featured modern browser, including most mobile ones. Here are installation instructions for some:
+IES is a userscript, so it can run on any fully-featured modern browser, including most mobile ones. You need to download the file above called ``imgur_enhancement_suite.user.js`` and install it in your browser. The installation process differs between browsers, but here are instructions for some of the big ones:
 
 * Opera: http://www.opera.com/docs/userjs/using/
 
@@ -13,3 +13,7 @@ IES is a userscript, so it can run on any fully-featured modern browser, includi
 
 * Chrome: http://userscripts.org/topics/113176
 
+###FAQ
+
+####Why isn't this a packaged extension?
+I don't believe there's any advantage to a "full" browser extension oven a userscript. Furthermore, this form allows users to easily install it in userscript-compliant browsers without my support.
