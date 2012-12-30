@@ -21,7 +21,10 @@
 	function change_tag_text(e) {
 		name = e.target.username;
 		text = prompt("New tag for @" + name, e.target.innerText);
-		e.target.innerText = text;
+		tags = document.getElementsByName("usertag_" + name);
+		for (var i = 0; i < tags.length; i++) {
+			tags[i].innerText = text;
+		}
 		user_tags[name] = text;
 		localStorage["user_tags"] = JSON.stringify(user_tags);
 	}
@@ -41,6 +44,7 @@
 		m = document.createElement("span");
 		m.innerHTML = t;
 		m.username = name;
+		m.setAttribute("name", "usertag_" + name);
 		m.style.backgroundColor = "#222";
 		m.style.border = "1px solid #555";
 		m.style.paddingLeft = "2px";
