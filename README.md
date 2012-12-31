@@ -11,7 +11,7 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
  1. Find the "User JavaScript folder" by looking in **Settings > Preferences > Advanced > Content > JavaScript options**
  2. Download https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js into that folder.
 
-####Mozilla
+####Mozilla (Firefox)
  1. Install the [GreaseMonkey extentsion](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/).
  2. Click here: https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
 
