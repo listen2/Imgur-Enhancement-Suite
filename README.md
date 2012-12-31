@@ -7,21 +7,28 @@ Imgur Enhancement Suite is a browser add-on (userscript) that adds some features
 
 IES can run on any fully-featured modern browser, including most mobile ones. You need to download the file https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js (you may need to right click -> save as) and install it in your browser. The installation process differs between browsers, but here are instructions for some of the big ones:
 
-* Opera: http://www.opera.com/docs/userjs/using/
+* Opera
+ 1. Find the "User JavaScript folder" by looking in **Settings > Preferences > Advanced > Content > JavaScript options**
+ 2. Download https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user into that folder.
 
-* Mozilla: Install the [GreaseMonkey extentsion](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/), then click the link to the file in the paragraph above.
+* Mozilla:
+ 1. Install the [GreaseMonkey extentsion](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/).
+ 2. Click here: https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user
 
-* Chrome: Save the .user.js file. Open ``chrome://chrome/extensions/``. Drag and drop the .user.js file into that page.
+* Chrome:
+ 1. Download https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user
+ 2. Open ``chrome://chrome/extensions/`` in Chrome
+ 3. Drag and drop the saved file into that page.
 
 * Internet Explorer: nope
 
-* Safari: http://www.simplehelp.net/2007/11/14/how-to-run-greasemonkey-scripts-in-safari/ (untested—please let me know how it works)
+* Safari: instructions at http://www.simplehelp.net/2007/11/14/how-to-run-greasemonkey-scripts-in-safari/ (untested—please let me know how it works)
 
-* Opera Mobile: http://my.opera.com/community/forums/topic.dml?id=1125542 (untested—please let me know how it works)
+* Opera Mobile: instructions at http://my.opera.com/community/forums/topic.dml?id=1125542 (untested—please let me know how it works)
 
 * Firefox Mobile: use https://addons.mozilla.org/en-us/firefox/addon/scriptish/ (untested—please let me know how it works)
 
-* iPad and iPhone: http://userscripts.org/topics/70361 (untested—please let me know how it works)
+* iPad and iPhone: instructions at http://userscripts.org/topics/70361 (untested—please let me know how it works)
 
 ###FAQ
 
