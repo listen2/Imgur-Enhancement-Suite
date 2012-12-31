@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name 			imgur enhancement suite
+// @name 			Imgur Enhancement Suite
 // @namespace		imgur_listen2
-// @description 	makes a few things a little better
+// @description 	Makes a few things a little bit better.
 // @include			http://imgur.com/*
 // ==/UserScript==
 
 (function(){
+	var version = 1;
+
 	function get_color(r) {
 		//full green:	133, 191, 37
 		//mid:			170, 170, 170
