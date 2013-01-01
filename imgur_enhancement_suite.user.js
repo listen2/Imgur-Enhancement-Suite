@@ -99,7 +99,6 @@
 		}
 	}
 
-	//FIXME: don't rely on setTimeout before calling this
 	function handle_vote(name, up, down, upvote) {
 		if (upvote === true) {
 			if (up.pushed === true) {    //un-upvote
@@ -140,7 +139,7 @@
 		down = e.target.parentNode.children[1];
 		up.setAttribute("pushed", true);
 		down.setAttribute("pushed", false);
-		setTimeout(function() { handle_vote(name, up, down, true); }, 100);
+		handle_vote(name, up, down, true);
 	}
 	function handle_downvote_comment(e) {
 		name = e.target.username;
@@ -148,7 +147,7 @@
 		down = e.target;
 		up.setAttribute("pushed", false);
 		down.setAttribute("pushed", true);
-		setTimeout(function() { handle_vote(name, up, down, false); }, 100);
+		handle_vote(name, up, down, false);
 	}
 	function handle_upvote_submission(e) {
 		name = submitter_name.textContent;
@@ -156,7 +155,7 @@
 		down = e.target.parentNode.children[1];
 		up.setAttribute("pushed", true);
 		down.setAttribute("pushed", false);
-		setTimeout(function() { handle_vote(name, up, down, true); }, 100);
+		handle_vote(name, up, down, true);
 	}
 	function handle_downvote_submission(e) {
 		name = submitter_name.textContent;
@@ -164,7 +163,7 @@
 		down = e.target;
 		up.setAttribute("pushed", false);
 		down.setAttribute("pushed", true);
-		setTimeout(function() { handle_vote(name, up, down, false); }, 100);
+		handle_vote(name, up, down, false);
 	}
 
 	//entry
