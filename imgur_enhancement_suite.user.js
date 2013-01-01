@@ -216,4 +216,7 @@
 			}, false
 		);
 	}
+
+	//create IES control panel
+	var control_panel = document.createElement("div");
 })();
