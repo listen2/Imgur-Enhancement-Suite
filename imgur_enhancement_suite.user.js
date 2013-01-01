@@ -197,10 +197,8 @@
 				} else if (e.target.className.indexOf("title") !== -1 &&
 						e.target.className.indexOf("positive") !== -1) {
 					//it's non-intuitive, but I think this is the most efficient reliable way to detect that we've changed images.
-					for (var i = 0; i < arrows.length; i++) {
+					for (var i = 0; i < arrows.length; i++)
 						arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
-						alert(arrows[i].className + " " + arrows[i].pushed);
-					}
 				}
 			}
 		},
