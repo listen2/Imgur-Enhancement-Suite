@@ -213,12 +213,16 @@
 	//attach vote button handlers
 	var arrows = document.getElementsByClassName("arrow");
 	for (var i = 0; i < arrows.length; i++) {
-		if (arrows[i].className.indexOf("up") !== -1) {
+		if (arrows[i].className.indexOf("up") !== -1)
 			arrows[i].addEventListener("click", handle_upvote_submission);
-			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
-		} else {
+		else
 			arrows[i].addEventListener("click", handle_downvote_submission);
-			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
-		}
+		arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
+		arrows[i].addEventListener("DOMAttrModified", function (e) {
+				if (e.attrName === "class") {
+					e.target.pushed = e.newValue.indexOf("pushed") !== -1;
+				}
+			}, false
+		);
 	}
 })();
