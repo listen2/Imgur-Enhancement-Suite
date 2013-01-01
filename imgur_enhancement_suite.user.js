@@ -200,16 +200,6 @@
 		false
 	);
 
-	/*
-	//add tag to submitter's name
-	subm = document.getElementById("stats-submit-source");
-	if (subm && subm.children.length > 0) {
-		tag_submitter(document.getElementById("stats-submit-source").children[1]);
-		submitter_name = document.getElementsByClassName("url-truncated")[0];
-		submitter_name.style.display = "inherit";
-		submitter_name.style.width = "inherit";
-	}*/
-
 	//attach vote button handlers
 	var arrows = document.getElementsByClassName("arrow");
 	for (var i = 0; i < arrows.length; i++) {
