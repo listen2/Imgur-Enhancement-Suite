@@ -173,45 +173,57 @@
 	vote_records = JSON.parse(localStorage["vote_records"] || "{}");
 	user_tags = JSON.parse(localStorage["user_tags"] || "{}");
 
-	//add tag to each comment as it is loaded
-	document.body.addEventListener("DOMNodeInserted", function (e) {
-			if (e.target.tagName === "DIV") {
-				if (e.target.className === "comment") {
-					tag_comment(e.target);
-				/*} else if (e.target.className === "stats-submit-source") {
-					tag_submitter(e.target.children[1]);
-					submitter_name = e.target.children[1];
-					submitter_name.style.display = "inherit";
-					submitter_name.style.width = "inherit";*/
-				} else if (e.target.className.indexOf("title") !== -1 && e.target.className.indexOf("positive") !== -1) {
-					//it's non-intuitive, but I think this is the most efficient reliable way to detect that we've changed images.
-					for (var i = 0; i < arrows.length; i++)
-						arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
-					//add tag to submitter's name
-					subm = document.getElementById("stats-submit-source");
-					if (subm && subm.children.length > 0) {
-						if (tag_submitter(document.getElementById("stats-submit-source").children[1])) {
-							submitter_name = document.getElementsByClassName("url-truncated")[0];
-							submitter_name.style.display = "inherit";
-							submitter_name.style.width = "inherit";
+	if (location.href.match(/https?:\/\/imgur.com\/\/?gallery\/.*/)) {
+		//add tag to each comment as it is loaded
+		document.body.addEventListener("DOMNodeInserted", function (e) {
+				if (e.target.tagName === "DIV") {
+					if (e.target.className === "comment") {
+						tag_comment(e.target);
+					/*} else if (e.target.className === "stats-submit-source") {
+						tag_submitter(e.target.children[1]);
+						submitter_name = e.target.children[1];
+						submitter_name.style.display = "inherit";
+						submitter_name.style.width = "inherit";*/
+					} else if (e.target.className.indexOf("title") !== -1 && e.target.className.indexOf("positive") !== -1) {
+						//it's non-intuitive, but I think this is the most efficient reliable way to detect that we've changed images.
+						for (var i = 0; i < arrows.length; i++)
+							arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
+						//add tag to submitter's name
+						subm = document.getElementById("stats-submit-source");
+						if (subm && subm.children.length > 0) {
+							if (tag_submitter(document.getElementById("stats-submit-source").children[1])) {
+								submitter_name = document.getElementsByClassName("url-truncated")[0];
+								submitter_name.style.display = "inherit";
+								submitter_name.style.width = "inherit";
+							}
 						}
 					}
 				}
-			}
-		},
-		false
-	);
+			},
+			false
+		);
 
-	//attach vote button handlers
-	var arrows = document.getElementsByClassName("arrow");
-	for (var i = 0; i < arrows.length; i++) {
-		if (arrows[i].className.indexOf("up") !== -1)
-			arrows[i].addEventListener("click", handle_upvote_submission);
-		else
-			arrows[i].addEventListener("click", handle_downvote_submission);
-		arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
+		//attach vote button handlers
+		var arrows = document.getElementsByClassName("arrow");
+		for (var i = 0; i < arrows.length; i++) {
+			if (arrows[i].className.indexOf("up") !== -1)
+				arrows[i].addEventListener("click", handle_upvote_submission);
+			else
+				arrows[i].addEventListener("click", handle_downvote_submission);
+			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
+		}
+	} else {
+		//
 	}
 
-	//create IES control panel
+	//create IES control panels
+	var floating_control = document.createElement("div");
+	floating_control.style.position = "fixed";
+	floating_control.style.left = "0";
+	floating_control.style.top = "0";
+	floating_control.innerHTML = "hhh";
+	document.body.appendChild(floating_control);
 	var control_panel = document.createElement("div");
+	control_panel.innerHTML = "ggg";
+	document.getElementById("right-content").appendChild(control_panel);
 })();
