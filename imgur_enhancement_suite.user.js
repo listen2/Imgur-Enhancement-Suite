@@ -212,8 +212,11 @@
 				arrows[i].addEventListener("click", handle_downvote_submission);
 			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
 		}
-	} else {
-		//
+	} else if (location.href.match(/https?:\/\/imgur.com\/user\/.*/)) {
+		caps = document.getElementsByClassName("caption");
+		for (var i = 0; i < caps.length; i++) {
+			tag_comment(caps[i]);
+		}
 	}
 
 	//create IES control panels
