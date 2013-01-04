@@ -69,6 +69,11 @@
 	function tag_comment(t) {	//ugh this recursion
 		for (var i = 0; i < t.children.length; i++) {
 			if (t.children[i].tagName === "DIV" && t.children[i].className === "author") {
+				if (true) {
+					if (t.children[i].children[0].textContent === Imgur._instance._.auth.url) {	//add extra tag to self
+						t.children[i].children[0].style.color = "#f00 !important";
+					}
+				}
 				user = t.children[i].children[0];
 				tagline = create_tagline(user.textContent);
 				user.parentNode.insertBefore(tagline, user.nextSibling);
@@ -228,5 +233,19 @@
 	document.body.appendChild(floating_control);
 	var control_panel = document.createElement("div");
 	control_panel.innerHTML = "ggg";
-	document.getElementById("right-content").appendChild(control_panel);
+	//document.getElementById("right-content").appendChild(control_panel);
+
+	function add_css(s) {
+		var e = document.createElement("style");
+		e.type = "text/css";
+		e.innerHTML = s
+		var head = document.getElementsByTagName("head")[0].appendChild(e);
+	}
+
+	if (true) {	//make "OP" more visible
+		add_css(".author .green{background:#85BF25;color:#181817!important;border-radius:3px;padding-right:3px}");
+	}
+	if (true) {	//add tag to own comments
+		add_css(".author .self{background:#85BF25;color:#181817!important;border-radius:3px;padding-right:3px}");
+	}
 })();
