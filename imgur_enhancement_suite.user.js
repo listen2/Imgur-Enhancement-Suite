@@ -177,7 +177,16 @@
 		if ((end > 0 && o.style.opacity >= end) || (end == 0 && o.style.opacity <= end))
 			return;
 		o.style.opacity = parseFloat(o.style.opacity) + step;
-		window.setTimeout(function() { fade_to(o, end, step) }, 50);
+		window.setTimeout(function() { fade_to(o, end, step) }, 30);
+	}
+	function set_up_title_faders() {
+		if (window.fade_timer !== undefined)
+			clearTimeout(fade_timer);
+		te = document.getElementById("image-title");
+		te.style.opacity = 0;
+		//add_css("#image-title{opacity:0}");
+		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 2000);
+		te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
 	}
 
 	//entry
@@ -211,11 +220,7 @@
 						}
 						//hide title
 						if (true) {
-							te = document.getElementById("image-title");
-							te.style.opacity = 0;
-							//add_css("#image-title{opacity:0}");
-							te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
-							window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 2000);
+							set_up_title_faders();
 						}
 					}//image change
 				}
@@ -234,11 +239,7 @@
 		}
 		//hide title
 		if (true) {
-			te = document.getElementById("image-title");
-			te.style.opacity = 0;
-			//add_css("#image-title{opacity:0}");
-			te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
-			window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 2000);
+			set_up_title_faders();
 		}
 	} else if (location.href.match(/https?:\/\/imgur.com\/user\/.*/)) {
 		caps = document.getElementsByClassName("caption");
