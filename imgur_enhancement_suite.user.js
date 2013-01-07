@@ -252,7 +252,7 @@
 	floating_control.style.overflow = "hidden";
 	floating_control.style.height = "1em";
 	//floating_control.innerHTML = "IES";
-	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><span id='update_span'></span>";
+	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><input id='config_tag_op' type='checkbox'/>Tag OPs<br><input id='config_tag_self' type='checkbox'/>Tag own posts<br><span id='update_span'></span>";
 	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
 	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
 	document.body.appendChild(floating_control);
@@ -262,6 +262,12 @@
 	config_hide_time = document.getElementById("config_hide_time");
 	config_hide_time.value = localStorage["config_hide_time"] || "1000";
 	config_hide_time.addEventListener("input", function(e) { localStorage["config_hide_time"] = config_hide_time.value; }, false);
+	config_tag_op = document.getElementById("config_tag_op");
+	config_tag_op.checked = localStorage["config_tag_op"] || true;
+	config_tag_op.addEventListener("input", function(e) { localStorage["config_tag_op"] = config_tag_op.checked; }, false);
+	config_tag_self = document.getElementById("config_tag_self");
+	config_tag_self.checked = localStorage["config_tag_self"] || true;
+	config_tag_self.addEventListener("input", function(e) { localStorage["config_tag_self"] = config_tag_self.checked; }, false);
 	/*var control_panel = document.createElement("div");
 	control_panel.innerHTML = "ggg";
 	document.getElementById("right-content").appendChild(control_panel);*/
@@ -336,10 +342,10 @@
 		var head = document.getElementsByTagName("head")[0].appendChild(e);
 	}
 
-	if (true) {	//make "OP" more visible
+	if (config_tag_op.checked) {	//make "OP" more visible
 		add_css(".author .green{background:#85BF25;color:#181817!important;border-radius:3px;padding-right:3px}");
 	}
-	if (true) {	//add tag to own comments
+	if (config_tag_self.checked) {	//add tag to own comments
 		add_css(".author .self{background:orange;color:#181817!important;border-radius:3px;padding-right:3px;padding-left:2px;margin-left:3px}");
 	}
 	check_version();
