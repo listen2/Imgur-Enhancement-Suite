@@ -8,7 +8,45 @@
 // ==/UserScript==
 
 (function(){
-	var version = 1.0;
+	var version = "1.0.0";
+
+	function check_version() {
+		version_info = JSON.parse(localStorage["version_info"] || "{}");
+		t = new Date().getTime();
+		//if (t - version_info.last_check < 86400) //24 hours
+		if (t - version_info.last_check < 10) //24 hours
+			return;
+		req = new XMLHttpRequest();	
+		req.onreadystatechange = received_version;
+		req.open("GET", "http://imgur.com/user/imgurenhancementsuite", true);
+		req.send(null);
+	}
+	function received_version() {
+		if (req.readyState === 4) {
+			if (req.status === 200) {
+				version_info.last_version = req.responseText.match(/account-bio" class="textbox profile ">(1.0.0)<\/div>/)[1];
+				var t = new Date().getTime();
+				version_info.last_check = t;
+				localStorage["version_info"] = JSON.stringify(version_info);
+				show_updates_available(version_info);
+			} else {
+				show_updates_available(null);
+			}
+		}
+	}
+	function show_updates_available(info) {
+		if (info === null) {
+			alert("error checking for updates");
+		} else {
+			a = version.split(".");
+			b = info.last_version.split(".");
+			if (a[0] !== b[0] || a[1] !== b[1] || a[2] !== b[2]) {
+				alert("new version available: " + info.last_version);
+			} else {
+			alert("up to date");
+			}
+		}
+	}
 
 	function get_color(r) {
 		//full green:	133, 191, 37
@@ -282,4 +320,5 @@
 	if (true) {	//add tag to own comments
 		add_css(".author .self{background:orange;color:#181817!important;border-radius:3px;padding-right:3px;padding-left:2px;margin-left:3px}");
 	}
+	check_version();
 })();
