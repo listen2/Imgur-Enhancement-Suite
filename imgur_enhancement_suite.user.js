@@ -228,6 +228,13 @@
 		te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
 	}
 
+	function floating_control_expand() {
+		floating_control.style.height = "auto";
+	}
+	function floating_control_collapse() {
+		floating_control.style.height = "1em";
+	}
+
 	//entry
 	//load records from localStorage
 	vote_records = JSON.parse(localStorage["vote_records"] || "{}");
@@ -301,11 +308,16 @@
 	floating_control.style.position = "fixed";
 	floating_control.style.left = "0";
 	floating_control.style.top = "0";
-	floating_control.innerHTML = "hhh";
+	floating_control.style.overflow = "hidden";
+	floating_control.style.height = "1em";
+	//floating_control.innerHTML = "IES";
+	floating_control.innerHTML = "IES<br>line2<br>line3";
+	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
+	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
 	document.body.appendChild(floating_control);
-	var control_panel = document.createElement("div");
+	/*var control_panel = document.createElement("div");
 	control_panel.innerHTML = "ggg";
-	//document.getElementById("right-content").appendChild(control_panel);
+	document.getElementById("right-content").appendChild(control_panel);*/
 
 	function add_css(s) {
 		var e = document.createElement("style");
