@@ -222,6 +222,15 @@
 		for (var i = 0; i < caps.length; i++) {
 			tag_comment(caps[i]);
 		}
+		document.body.addEventListener("DOMNodeInserted", function (e) {
+				if (e.target.tagName === "DIV") {
+					if (e.target.className === "comment-item") {
+						tag_comment(e.target);
+					}
+				}
+			},
+			false
+		);
 	}
 
 	//create IES control panels
