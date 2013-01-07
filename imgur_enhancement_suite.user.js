@@ -228,7 +228,7 @@
 		te = document.getElementById("image-title");
 		te.style.opacity = 0;
 		//add_css("#image-title{opacity:0}");
-		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, localStorage["config_hide_time"]);
+		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, config_hide_time.value);
 		te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
 	}
 
@@ -243,6 +243,28 @@
 	//load records from localStorage
 	vote_records = JSON.parse(localStorage["vote_records"] || "{}");
 	user_tags = JSON.parse(localStorage["user_tags"] || "{}");
+
+	//create IES control panels
+	var floating_control = document.createElement("div");
+	floating_control.style.position = "fixed";
+	floating_control.style.left = "0";
+	floating_control.style.top = "0";
+	floating_control.style.overflow = "hidden";
+	floating_control.style.height = "1em";
+	//floating_control.innerHTML = "IES";
+	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><span id='update_span'></span>";
+	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
+	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
+	document.body.appendChild(floating_control);
+	config_hide = document.getElementById("config_hide");
+	config_hide.checked = localStorage["config_hide"] || true;
+	config_hide.addEventListener("input", function(e) { localStorage["config_hide"] = config_hide.checked; }, false);
+	config_hide_time = document.getElementById("config_hide_time");
+	config_hide_time.value = localStorage["config_hide_time"] || "1000";
+	config_hide_time.addEventListener("input", function(e) { localStorage["config_hide_time"] = config_hide_time.value; }, false);
+	/*var control_panel = document.createElement("div");
+	control_panel.innerHTML = "ggg";
+	document.getElementById("right-content").appendChild(control_panel);*/
 
 	if (location.href.match(/https?:\/\/imgur.com\/\/?gallery\/.*/)) {
 		//add tag to each comment as it is loaded
@@ -306,28 +328,6 @@
 			false
 		);
 	}
-
-	//create IES control panels
-	var floating_control = document.createElement("div");
-	floating_control.style.position = "fixed";
-	floating_control.style.left = "0";
-	floating_control.style.top = "0";
-	floating_control.style.overflow = "hidden";
-	floating_control.style.height = "1em";
-	//floating_control.innerHTML = "IES";
-	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><span id='update_span'></span>";
-	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
-	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
-	document.body.appendChild(floating_control);
-	config_hide = document.getElementById("config_hide");
-	config_hide.checked = localStorage["config_hide"] || true;
-	config_hide.addEventListener("input", function(e) { localStorage["config_hide"] = config_hide.checked; }, false);
-	config_hide_time = document.getElementById("config_hide_time");
-	config_hide_time.value = localStorage["config_hide_time"] || "1000";
-	config_hide_time.addEventListener("input", function(e) { localStorage["config_hide_time"] = config_hide_time.value; }, false);
-	/*var control_panel = document.createElement("div");
-	control_panel.innerHTML = "ggg";
-	document.getElementById("right-content").appendChild(control_panel);*/
 
 	function add_css(s) {
 		var e = document.createElement("style");
