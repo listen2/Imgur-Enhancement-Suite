@@ -8,7 +8,7 @@
 // ==/UserScript==
 
 (function(){
-	var version = 1;
+	var version = 1.0;
 
 	function get_color(r) {
 		//full green:	133, 191, 37
