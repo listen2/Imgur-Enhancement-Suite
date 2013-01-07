@@ -185,7 +185,7 @@
 		te = document.getElementById("image-title");
 		te.style.opacity = 0;
 		//add_css("#image-title{opacity:0}");
-		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 2000);
+		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 1000);
 		te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
 	}
 
