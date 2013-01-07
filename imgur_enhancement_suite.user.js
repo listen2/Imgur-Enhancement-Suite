@@ -220,7 +220,7 @@
 		if ((end > 0 && o.style.opacity >= end) || (end == 0 && o.style.opacity <= end))
 			return;
 		o.style.opacity = parseFloat(o.style.opacity) + step;
-		window.setTimeout(function() { fade_to(o, end, step) }, 30);
+		window.setTimeout(function() { fade_to(o, end, step) }, 10);
 	}
 	function set_up_title_faders() {
 		if (window.fade_timer !== undefined)
