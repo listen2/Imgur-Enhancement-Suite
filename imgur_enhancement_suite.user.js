@@ -36,14 +36,18 @@
 	}
 	function show_updates_available(info) {
 		if (info === null) {
-			alert("error checking for updates");
+			document.getElementById("update_span").textContent = "Update check error";
+			floating_control.children[0].style.color = "#e44";
+			floating_control.children[0].style.fontWeight = "bold";
 		} else {
 			a = version.split(".");
 			b = info.last_version.split(".");
 			if (a[0] !== b[0] || a[1] !== b[1] || a[2] !== b[2]) {
-				alert("new version available: " + info.last_version);
+				document.getElementById("update_span").innerHTML = "<a href='https://github.com/listen2/Imgur-Enhancement-Suite'>New version: " + info.last_version + "</a>";
+				floating_control.children[0].style.color = "#85BF25";
+				floating_control.children[0].style.fontWeight = "bold";
 			} else {
-			alert("up to date");
+			document.getElementById("update_span").textContent = "Up to date";
 			}
 		}
 	}
@@ -311,7 +315,7 @@
 	floating_control.style.overflow = "hidden";
 	floating_control.style.height = "1em";
 	//floating_control.innerHTML = "IES";
-	floating_control.innerHTML = "IES<br>line2<br>line3";
+	floating_control.innerHTML = "<span>IES</span><br><span id='update_span'></span>";
 	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
 	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
 	document.body.appendChild(floating_control);
