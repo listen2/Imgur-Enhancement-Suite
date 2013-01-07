@@ -63,17 +63,18 @@
 		c = document.createElement("span");
 		c.textContent = " :";
 		tagline.appendChild(c);
+		if (true && name === Imgur._instance._.auth.url) { // add "self" element
+			c = document.createElement("span");
+			c.textContent = "self";
+			c.className = "self";
+			tagline.appendChild(c);
+		}
 		return tagline;
 	}
 
 	function tag_comment(t) {	//ugh this recursion
 		for (var i = 0; i < t.children.length; i++) {
 			if (t.children[i].tagName === "DIV" && t.children[i].className === "author") {
-				if (true) {
-					if (t.children[i].children[0].textContent === Imgur._instance._.auth.url) {	//add extra tag to self
-						t.children[i].children[0].style.color = "#f00 !important";
-					}
-				}
 				user = t.children[i].children[0];
 				tagline = create_tagline(user.textContent);
 				user.parentNode.insertBefore(tagline, user.nextSibling);
@@ -279,6 +280,6 @@
 		add_css(".author .green{background:#85BF25;color:#181817!important;border-radius:3px;padding-right:3px}");
 	}
 	if (true) {	//add tag to own comments
-		add_css(".author .self{background:#85BF25;color:#181817!important;border-radius:3px;padding-right:3px}");
+		add_css(".author .self{background:orange;color:#181817!important;border-radius:3px;padding-right:3px;padding-left:2px;margin-left:3px}");
 	}
 })();
