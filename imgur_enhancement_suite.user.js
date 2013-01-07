@@ -228,7 +228,7 @@
 		te = document.getElementById("image-title");
 		te.style.opacity = 0;
 		//add_css("#image-title{opacity:0}");
-		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 1000);
+		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, localStorage["config_hide_time"]);
 		te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
 	}
 
@@ -315,10 +315,13 @@
 	floating_control.style.overflow = "hidden";
 	floating_control.style.height = "1em";
 	//floating_control.innerHTML = "IES";
-	floating_control.innerHTML = "<span>IES</span><br><span id='update_span'></span>";
+	floating_control.innerHTML = "<span>IES</span><br>Show titles after <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><span id='update_span'></span>";
 	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
 	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
 	document.body.appendChild(floating_control);
+	config_hide_time = document.getElementById("config_hide_time");
+	config_hide_time.value = localStorage["config_hide_time"] || "1000";
+	config_hide_time.addEventListener("input", function(e) { localStorage["config_hide_time"] = config_hide_time.value; }, false);
 	/*var control_panel = document.createElement("div");
 	control_panel.innerHTML = "ggg";
 	document.getElementById("right-content").appendChild(control_panel);*/
