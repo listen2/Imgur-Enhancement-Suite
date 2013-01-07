@@ -173,6 +173,13 @@
 		handle_vote(name, up, down, false);
 	}
 
+	function fade_to(o, end, step) {
+		if ((end > 0 && o.style.opacity >= end) || (end == 0 && o.style.opacity <= end))
+			return;
+		o.style.opacity = parseFloat(o.style.opacity) + step;
+		window.setTimeout(function() { fade_to(o, end, step) }, 50);
+	}
+
 	//entry
 	//load records from localStorage
 	vote_records = JSON.parse(localStorage["vote_records"] || "{}");
@@ -202,7 +209,15 @@
 								submitter_name.style.width = "inherit";
 							}
 						}
-					}
+						//hide title
+						if (true) {
+							te = document.getElementById("image-title");
+							te.style.opacity = 0;
+							//add_css("#image-title{opacity:0}");
+							te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
+							window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 2000);
+						}
+					}//image change
 				}
 			},
 			false
@@ -216,6 +231,14 @@
 			else
 				arrows[i].addEventListener("click", handle_downvote_submission);
 			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
+		}
+		//hide title
+		if (true) {
+			te = document.getElementById("image-title");
+			te.style.opacity = 0;
+			//add_css("#image-title{opacity:0}");
+			te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
+			window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, 2000);
 		}
 	} else if (location.href.match(/https?:\/\/imgur.com\/user\/.*/)) {
 		caps = document.getElementsByClassName("caption");
