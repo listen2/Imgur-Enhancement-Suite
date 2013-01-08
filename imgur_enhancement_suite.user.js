@@ -24,7 +24,7 @@
 	function received_version() {
 		if (req.readyState === 4) {
 			if (req.status === 200) {
-				version_info.last_version = req.responseText.match(/account-bio" class="textbox profile ">(1.0.0)<\/div>/)[1];
+				version_info.last_version = req.responseText.match(/account-bio" class="textbox profile ">.*version=(\d\.\d\.\d).*<\/div>/)[1];
 				var t = new Date().getTime();
 				version_info.last_check = t;
 				localStorage["version_info"] = JSON.stringify(version_info);
@@ -47,7 +47,7 @@
 				floating_control.children[0].style.color = "#85BF25";
 				floating_control.children[0].style.fontWeight = "bold";
 			} else {
-			document.getElementById("update_span").textContent = "Up to date";
+				document.getElementById("update_span").textContent = "Up to date";
 			}
 		}
 	}
