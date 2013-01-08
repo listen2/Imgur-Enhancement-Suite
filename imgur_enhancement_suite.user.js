@@ -247,7 +247,7 @@
 	//set default config
 	if (localStorage["config_hide"] === undefined) localStorage["config_hide"] = true;
 	if (localStorage["config_tag_op"] === undefined) localStorage["config_tag_op"] = true;
-	if (localStorage["config_tag_self"] ===undefined) localStorage["config_tag_self"] = true;
+	if (localStorage["config_tag_self"] === undefined) localStorage["config_tag_self"] = true;
 	//create IES control panels
 	var floating_control = document.createElement("div");
 	floating_control.style.position = "fixed";
