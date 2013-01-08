@@ -105,7 +105,7 @@
 		c = document.createElement("span");
 		c.textContent = " :";
 		tagline.appendChild(c);
-		if (true && name === Imgur._instance._.auth.url) { // add "self" element
+		if (true && name === document.getElementsByClassName("account-arrow")[0].nextSibling.textContent) { // add "self" element
 			c = document.createElement("span");
 			c.textContent = "self";
 			c.className = "self";
