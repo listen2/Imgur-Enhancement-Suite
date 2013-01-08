@@ -13,8 +13,7 @@
 	function check_version() {
 		version_info = JSON.parse(localStorage["version_info"] || "{}");
 		t = new Date().getTime();
-		//if (t - version_info.last_check < 86400) //24 hours
-		if (t - version_info.last_check < 10) //24 hours
+		if (t - version_info.last_check < 86400) //24 hours
 			return;
 		req = new XMLHttpRequest();	
 		req.onreadystatechange = received_version;
