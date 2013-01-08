@@ -21,19 +21,19 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
  3. Drag and drop the saved file into that page.
 
 ####Internet Explorer
- * nope
+ 1. nope
 
 ####Safari
- * instructions at http://www.simplehelp.net/2007/11/14/how-to-run-greasemonkey-scripts-in-safari/ (untested—please let me know how it works)
+ 1. instructions at http://www.simplehelp.net/2007/11/14/how-to-run-greasemonkey-scripts-in-safari/ (untested—please let me know how it works)
 
 ####Opera Mobile
- * instructions at http://my.opera.com/community/forums/topic.dml?id=1125542 (untested—please let me know how it works)
+ 1. instructions at http://my.opera.com/community/forums/topic.dml?id=1125542 (untested—please let me know how it works)
 
 ####Firefox Mobile
- * use https://addons.mozilla.org/en-us/firefox/addon/scriptish/ (untested—please let me know how it works)
+ 1. use https://addons.mozilla.org/en-us/firefox/addon/scriptish/ (untested—please let me know how it works)
 
 ####iPad and iPhone
- * instructions at http://userscripts.org/topics/70361 (untested—please let me know how it works)
+ 1. instructions at http://userscripts.org/topics/70361 (untested—please let me know how it works)
 
 ###FAQ
 
