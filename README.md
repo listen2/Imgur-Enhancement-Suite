@@ -16,8 +16,9 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
  2. Click here: https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
 
 ####Chrome
- 1. Open ``chrome://chrome/extensions/`` in Chrome
- 2. Drag the following link into that page: https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
+ 1. Download https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
+ 2. Open ``chrome://chrome/extensions/`` in Chrome
+ 3. Drag and drop the saved file into that page.
 
 ####Internet Explorer
  * nope
