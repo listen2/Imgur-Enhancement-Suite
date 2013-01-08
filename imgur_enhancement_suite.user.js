@@ -4,7 +4,8 @@
 // @downloadURL	https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
 // @version			2.0.0
 // @description 	Makes a few things a little bit better.
-// @include			http://imgur.com/*
+// @include			http://imgur.com/gallery/*
+// @include			http://imgur.com/user/*
 // ==/UserScript==
 
 (function(){
