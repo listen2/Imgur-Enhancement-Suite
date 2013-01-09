@@ -256,7 +256,7 @@
 	floating_control.style.overflow = "hidden";
 	floating_control.style.height = "1em";
 	//floating_control.innerHTML = "IES";
-	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><input id='config_tag_op' type='checkbox'/>Tag OPs<br><input id='config_tag_self' type='checkbox'/>Tag own posts<br><span id='update_span'></span>";
+	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><input id='config_tag_op' type='checkbox'/>Label OPs<br><input id='config_tag_self' type='checkbox'/>Label own posts<br><span id='update_span'></span>";
 	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
 	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
 	document.body.appendChild(floating_control);
