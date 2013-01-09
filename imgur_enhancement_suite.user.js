@@ -2,14 +2,14 @@
 // @name 			Imgur Enhancement Suite
 // @namespace		imgur_listen2
 // @downloadURL	https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
-// @version			2.0.0
+// @version			2.1.0
 // @description 	Makes a few things a little bit better.
 // @include			http://imgur.com/gallery/*
 // @include			http://imgur.com/user/*
 // ==/UserScript==
 
 (function(){
-	var version = "2.0.0";
+	var version = "2.1.0";
 
 	function check_version() {
 		version_info = JSON.parse(localStorage["version_info"] || "{}");
