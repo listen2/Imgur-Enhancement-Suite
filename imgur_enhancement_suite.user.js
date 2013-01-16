@@ -105,7 +105,7 @@
 		c = document.createElement("span");
 		c.textContent = " :";
 		tagline.appendChild(c);
-		if (true && name === document.getElementsByClassName("account-arrow")[0].nextSibling.textContent) { // add "self" element
+		if (config_tag_self && name === account_name) { // add "self" element
 			c = document.createElement("span");
 			c.textContent = "self";
 			c.className = "self";
@@ -275,6 +275,19 @@
 	/*var control_panel = document.createElement("div");
 	control_panel.innerHTML = "ggg";
 	document.getElementById("right-content").appendChild(control_panel);*/
+
+	var account_arrow = document.getElementsByClassName("account-arrow")[0];
+	if (account_arrow === undefined) {	//mobile
+		var x = document.getElementsByTagName("a");
+		for (var i = 0; i < x.length; i++) {
+			if (x[i].href === "http://imgur.com/account/settings/") {
+				var account_name = x[i].textContent;
+				break;
+			}
+		}
+	} else {
+		var account_name = account_arrow.nextSibling.textContent;
+	}
 
 	if (location.href.match(/https?:\/\/imgur.com\/\/?gallery\/.*/)) {
 		//add tag to each comment as it is loaded
