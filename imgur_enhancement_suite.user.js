@@ -103,17 +103,26 @@
 			n.style.color = get_color(r);
 		}
 		tagline.appendChild(n);
-		t = user_tags[name] || "tag";
-		m = document.createElement("span");
-		m.innerHTML = t;
-		m.username = name;
-		m.setAttribute("name", "usertag_" + name);
-		m.style.backgroundColor = "#222";
-		m.style.border = "1px solid #555";
-		m.style.paddingLeft = "2px";
-		m.style.paddingRight = "2px";
-		m.addEventListener("click", change_tag_text);
-		tagline.appendChild(m);
+		if (user_tags[name]) {
+			t = user_tags[name] || "&nbsp;&nbsp;";
+			m = document.createElement("span");
+			m.innerHTML = t;
+			m.username = name;
+			m.setAttribute("name", "usertag_" + name);
+			m.style.backgroundColor = "#222";
+			m.style.border = "1px solid #555";
+			m.style.paddingLeft = "2px";
+			m.style.paddingRight = "2px";
+			m.addEventListener("click", change_tag_text);
+			tagline.appendChild(m);
+		} else {
+			m = document.createElement("img");
+			m.username = name;
+			m.setAttribute("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAICAYAAADwdn+XAAAABmJLR0QAiQDGACTslGe/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMdFhcB7Yg7AQAAAIlJREFUKM+d0SEKAmEQBtA364JNsGwz6Q0UBINX8B5ewDMYBcMGg91utXkKo8kjCPpbVli2rOuDaTPfMEyklHxFxBhrFHhpd8lrw3PsMfO7Zx4RGVbYYaSbd44lTujB9joBm8VN/bymiAAZHjj7V7WlwBGpY5VSSt+QIcqOAYdovHGAKfpVQ5v7B/dPOZblyjmxAAAAAElFTkSuQmCC");
+			m.setAttribute("name", "usertag_" + name);
+			m.addEventListener("click", change_tag_text);
+			tagline.appendChild(m);
+		}
 
 		c = document.createTextNode(" ");
 		tagline.insertBefore(c, tagline.firstChild);
