@@ -145,12 +145,12 @@
 				tagline = create_tagline(user.textContent);
 				user.parentNode.insertBefore(tagline, user.nextSibling);
 				//attach arrow click handlers
-				user.parentNode.parentNode.previousSibling.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
-				user.parentNode.parentNode.previousSibling.previousSibling.children[0].username = user.textContent;	//for convenience
-				user.parentNode.parentNode.previousSibling.previousSibling.children[0].pushed = user.parentNode.parentNode.previousSibling.previousSibling.children[0].className.indexOf("pushed") !== -1;
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].username = user.textContent;	//for convenience
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].pushed = user.parentNode.parentNode.previousSibling.previousSibling.children[1].className.indexOf("pushed") !== -1;
+				user.parentNode.parentNode.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
+				user.parentNode.parentNode.previousSibling.children[0].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.previousSibling.children[0].pushed = user.parentNode.parentNode.previousSibling.children[0].className.indexOf("pushed") !== -1;
+				user.parentNode.parentNode.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
+				user.parentNode.parentNode.previousSibling.children[1].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.previousSibling.children[1].pushed = user.parentNode.parentNode.previousSibling.children[1].className.indexOf("pushed") !== -1;
 			} else {
 				tag_comment(t.children[i]);
 			}
@@ -208,20 +208,18 @@
 	}
 
 	function handle_upvote_comment(e) {
-		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].textContent;
 		up = e.target;
 		down = e.target.parentNode.children[1];
 		up.setAttribute("pushed", true);
 		down.setAttribute("pushed", false);
-		handle_vote(name, up, down, true);
+		handle_vote(e.target.username, up, down, true);
 	}
 	function handle_downvote_comment(e) {
-		name = e.target.username;
 		up = e.target.parentNode.children[0];
 		down = e.target;
 		up.setAttribute("pushed", false);
 		down.setAttribute("pushed", true);
-		handle_vote(name, up, down, false);
+		handle_vote(e.target.username, up, down, false);
 	}
 	function handle_upvote_submission(e) {
 		name = submitter_name.textContent;
