@@ -2,14 +2,29 @@
 // @name 			Imgur Enhancement Suite
 // @namespace		imgur_listen2
 // @downloadURL	https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
-// @version			2.0.0
+// @version			2.1.0
 // @description 	Makes a few things a little bit better.
 // @include			http://imgur.com/gallery/*
 // @include			http://imgur.com/user/*
 // ==/UserScript==
 
+/*	Copyright 2012-2013 listen2
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
 (function(){
-	var version = "2.0.0";
+	var version = "2.1.0";
 
 	function check_version() {
 		version_info = JSON.parse(localStorage["version_info"] || "{}");
@@ -71,10 +86,28 @@
 			return;
 		tags = document.getElementsByName("usertag_" + name);
 		for (var i = 0; i < tags.length; i++) {
+			if (tags[i].tagName === "IMG") {
+				m = create_tag_span(name, text);
+				new_span = tags[i].parentNode.insertBefore(m, tags[i]);
+				tags[i].parentNode.removeChild(new_span.nextSibling);
+			}
 			tags[i].textContent = text;
 		}
 		user_tags[name] = text;
 		localStorage["user_tags"] = JSON.stringify(user_tags);
+	}
+
+	function create_tag_span(name, t) {
+		m = document.createElement("span");
+		m.innerHTML = t;
+		m.username = name;
+		m.setAttribute("name", "usertag_" + name);
+		m.style.backgroundColor = "#222";
+		m.style.border = "1px solid #555";
+		m.style.paddingLeft = "2px";
+		m.style.paddingRight = "2px";
+		m.addEventListener("click", change_tag_text);
+		return m;
 	}
 
 	function create_tagline(name) {
@@ -88,24 +121,25 @@
 			n.style.color = get_color(r);
 		}
 		tagline.appendChild(n);
-		t = user_tags[name] || "tag";
-		m = document.createElement("span");
-		m.innerHTML = t;
-		m.username = name;
-		m.setAttribute("name", "usertag_" + name);
-		m.style.backgroundColor = "#222";
-		m.style.border = "1px solid #555";
-		m.style.paddingLeft = "2px";
-		m.style.paddingRight = "2px";
-		m.addEventListener("click", change_tag_text);
-		tagline.appendChild(m);
+		if (user_tags[name]) {
+			t = user_tags[name] || "&nbsp;&nbsp;";
+			m = create_tag_span(name, t);
+			tagline.appendChild(m);
+		} else {
+			m = document.createElement("img");
+			m.username = name;
+			m.setAttribute("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAICAYAAADwdn+XAAAABmJLR0QAiQDGACTslGe/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMdFhcB7Yg7AQAAAIlJREFUKM+d0SEKAmEQBtA364JNsGwz6Q0UBINX8B5ewDMYBcMGg91utXkKo8kjCPpbVli2rOuDaTPfMEyklHxFxBhrFHhpd8lrw3PsMfO7Zx4RGVbYYaSbd44lTujB9joBm8VN/bymiAAZHjj7V7WlwBGpY5VSSt+QIcqOAYdovHGAKfpVQ5v7B/dPOZblyjmxAAAAAElFTkSuQmCC");
+			m.setAttribute("name", "usertag_" + name);
+			m.addEventListener("click", change_tag_text);
+			tagline.appendChild(m);
+		}
 
 		c = document.createTextNode(" ");
 		tagline.insertBefore(c, tagline.firstChild);
 		c = document.createElement("span");
 		c.textContent = " :";
 		tagline.appendChild(c);
-		if (true && name === document.getElementsByClassName("account-arrow")[0].nextSibling.textContent) { // add "self" element
+		if (config_tag_self && name === account_name) { // add "self" element
 			c = document.createElement("span");
 			c.textContent = "self";
 			c.className = "self";
@@ -121,12 +155,12 @@
 				tagline = create_tagline(user.textContent);
 				user.parentNode.insertBefore(tagline, user.nextSibling);
 				//attach arrow click handlers
-				user.parentNode.parentNode.previousSibling.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
-				user.parentNode.parentNode.previousSibling.previousSibling.children[0].username = user.textContent;	//for convenience
-				user.parentNode.parentNode.previousSibling.previousSibling.children[0].pushed = user.parentNode.parentNode.previousSibling.previousSibling.children[0].className.indexOf("pushed") !== -1;
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].username = user.textContent;	//for convenience
-				user.parentNode.parentNode.previousSibling.previousSibling.children[1].pushed = user.parentNode.parentNode.previousSibling.previousSibling.children[1].className.indexOf("pushed") !== -1;
+				user.parentNode.parentNode.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
+				user.parentNode.parentNode.previousSibling.children[0].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.previousSibling.children[0].pushed = user.parentNode.parentNode.previousSibling.children[0].className.indexOf("pushed") !== -1;
+				user.parentNode.parentNode.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
+				user.parentNode.parentNode.previousSibling.children[1].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.previousSibling.children[1].pushed = user.parentNode.parentNode.previousSibling.children[1].className.indexOf("pushed") !== -1;
 			} else {
 				tag_comment(t.children[i]);
 			}
@@ -184,20 +218,18 @@
 	}
 
 	function handle_upvote_comment(e) {
-		name = e.target.parentNode.nextSibling.nextSibling.children[0].children[0].textContent;
 		up = e.target;
 		down = e.target.parentNode.children[1];
 		up.setAttribute("pushed", true);
 		down.setAttribute("pushed", false);
-		handle_vote(name, up, down, true);
+		handle_vote(e.target.username, up, down, true);
 	}
 	function handle_downvote_comment(e) {
-		name = e.target.username;
 		up = e.target.parentNode.children[0];
 		down = e.target;
 		up.setAttribute("pushed", false);
 		down.setAttribute("pushed", true);
-		handle_vote(name, up, down, false);
+		handle_vote(e.target.username, up, down, false);
 	}
 	function handle_upvote_submission(e) {
 		name = submitter_name.textContent;
@@ -256,7 +288,7 @@
 	floating_control.style.overflow = "hidden";
 	floating_control.style.height = "1em";
 	//floating_control.innerHTML = "IES";
-	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><input id='config_tag_op' type='checkbox'/>Tag OPs<br><input id='config_tag_self' type='checkbox'/>Tag own posts<br><span id='update_span'></span>";
+	floating_control.innerHTML = "<span>IES</span><br><input id='config_hide' type='checkbox'/>Hide titles for <input id='config_hide_time' type='text' pattern='\d' style='width:44px;margin:0;padding:0'/>msec<br><input id='config_tag_op' type='checkbox'/>Label OPs<br><input id='config_tag_self' type='checkbox'/>Label own posts<br><span id='update_span'></span>";
 	floating_control.addEventListener("mouseover", function() {floating_control_expand()});
 	floating_control.addEventListener("mouseout", function() {floating_control_collapse()});
 	document.body.appendChild(floating_control);
@@ -275,6 +307,19 @@
 	/*var control_panel = document.createElement("div");
 	control_panel.innerHTML = "ggg";
 	document.getElementById("right-content").appendChild(control_panel);*/
+
+	var account_arrow = document.getElementsByClassName("account-arrow")[0];
+	if (account_arrow === undefined) {	//mobile
+		var x = document.getElementsByTagName("a");
+		for (var i = 0; i < x.length; i++) {
+			if (x[i].href === "http://imgur.com/account/settings/") {
+				var account_name = x[i].textContent;
+				break;
+			}
+		}
+	} else {
+		var account_name = account_arrow.nextSibling.textContent;
+	}
 
 	if (location.href.match(/https?:\/\/imgur.com\/\/?gallery\/.*/)) {
 		//add tag to each comment as it is loaded
