@@ -39,3 +39,6 @@ IES can run on any fully-featured modern browser, including most mobile ones. Yo
 
 ####Why isn't this a packaged extension?
 I don't believe there's any advantage to a "full" browser extension over a userscript. Furthermore, this form allows users to easily install it in userscript-compliant browsers without my support.
+
+###Credits
+Thank you imgurian Khyber for the "no tag" image!
