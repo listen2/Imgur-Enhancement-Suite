@@ -86,10 +86,28 @@
 			return;
 		tags = document.getElementsByName("usertag_" + name);
 		for (var i = 0; i < tags.length; i++) {
+			if (tags[i].tagName === "IMG") {
+				m = create_tag_span(name, text);
+				new_span = tags[i].parentNode.insertBefore(m, tags[i]);
+				tags[i].parentNode.removeChild(new_span.nextSibling);
+			}
 			tags[i].textContent = text;
 		}
 		user_tags[name] = text;
 		localStorage["user_tags"] = JSON.stringify(user_tags);
+	}
+
+	function create_tag_span(name, t) {
+		m = document.createElement("span");
+		m.innerHTML = t;
+		m.username = name;
+		m.setAttribute("name", "usertag_" + name);
+		m.style.backgroundColor = "#222";
+		m.style.border = "1px solid #555";
+		m.style.paddingLeft = "2px";
+		m.style.paddingRight = "2px";
+		m.addEventListener("click", change_tag_text);
+		return m;
 	}
 
 	function create_tagline(name) {
@@ -105,15 +123,7 @@
 		tagline.appendChild(n);
 		if (user_tags[name]) {
 			t = user_tags[name] || "&nbsp;&nbsp;";
-			m = document.createElement("span");
-			m.innerHTML = t;
-			m.username = name;
-			m.setAttribute("name", "usertag_" + name);
-			m.style.backgroundColor = "#222";
-			m.style.border = "1px solid #555";
-			m.style.paddingLeft = "2px";
-			m.style.paddingRight = "2px";
-			m.addEventListener("click", change_tag_text);
+			m = create_tag_span(name, t);
 			tagline.appendChild(m);
 		} else {
 			m = document.createElement("img");
