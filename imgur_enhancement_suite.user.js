@@ -216,13 +216,13 @@
 		handle_vote(e.target.username, up, down, false);
 	}
 	function handle_upvote_submission(e) {
-		name = submitter_name.textContent;
+		name = document.getElementsByClassName("url-truncated")[0].textContent;
 		up = e.target;
 		down = e.target.parentNode.children[1];
 		handle_vote(name, up, down, true);
 	}
 	function handle_downvote_submission(e) {
-		name = submitter_name.textContent;
+		name = document.getElementsByClassName("url-truncated")[0].textContent;
 		up = e.target.parentNode.children[0];
 		down = e.target;
 		handle_vote(name, up, down, false);
