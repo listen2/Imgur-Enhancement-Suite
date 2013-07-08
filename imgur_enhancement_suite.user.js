@@ -187,7 +187,7 @@
 		if (upvote === true) {
 			if (up_pushed === true) {    //un-upvote
 				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-			} else if (down.pushed) {    //change downvote to upvote
+			} else if (down_pushed) {    //change downvote to upvote
 				vote_records[name] = vote_records[name] ? vote_records[name]+2 : 1;
 			} else {              //normal upvote
 				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
