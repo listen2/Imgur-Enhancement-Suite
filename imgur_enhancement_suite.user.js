@@ -2,7 +2,7 @@
 // @name 			Imgur Enhancement Suite
 // @namespace		imgur_listen2
 // @downloadURL	https://raw.github.com/listen2/Imgur-Enhancement-Suite/master/imgur_enhancement_suite.user.js
-// @version			2.1.0
+// @version			2.1.2
 // @description 	Makes a few things a little bit better.
 // @include			http://imgur.com/gallery/*
 // @include			http://imgur.com/user/*
@@ -24,7 +24,7 @@
 */
 
 (function(){
-	var version = "2.1.0";
+	var version = "2.1.2";
 
 	function check_version() {
 		version_info = JSON.parse(localStorage["version_info"] || "{}");
@@ -157,10 +157,8 @@
 				//attach arrow click handlers
 				user.parentNode.parentNode.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
 				user.parentNode.parentNode.previousSibling.children[0].username = user.textContent;	//for convenience
-				user.parentNode.parentNode.previousSibling.children[0].pushed = user.parentNode.parentNode.previousSibling.children[0].className.indexOf("pushed") !== -1;
 				user.parentNode.parentNode.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
 				user.parentNode.parentNode.previousSibling.children[1].username = user.textContent;	//for convenience
-				user.parentNode.parentNode.previousSibling.children[1].pushed = user.parentNode.parentNode.previousSibling.children[1].className.indexOf("pushed") !== -1;
 			} else {
 				tag_comment(t.children[i]);
 			}
@@ -184,33 +182,23 @@
 	}
 
 	function handle_vote(name, up, down, upvote) {
+		up_pushed = button_is_pushed(up);
+		down_pushed = button_is_pushed(down);
 		if (upvote === true) {
-			if (up.pushed === true) {    //un-upvote
+			if (up_pushed === true) {    //un-upvote
 				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-				up.pushed = false;
-				down.pushed = false; //unnecessary?
 			} else if (down.pushed) {    //change downvote to upvote
 				vote_records[name] = vote_records[name] ? vote_records[name]+2 : 1;
-				up.pushed = true;
-				down.pushed = false;
 			} else {              //normal upvote
 				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-				up.pushed = true;
-				down.pushed = false; //unnecessary?
 			}
 		} else {
-			if (down.pushed === true) {    //un-downvote
+			if (down_pushed === true) {    //un-downvote
 				vote_records[name] = vote_records[name] ? vote_records[name]+1 : 1;
-				down.pushed = false;
-				up.pushed = false; //unnecessary?
-			} else if (up.pushed) {      //change upvote to downvote
+			} else if (up_pushed) {      //change upvote to downvote
 				vote_records[name] = vote_records[name] ? vote_records[name]-2 : -1;
-				down.pushed = true;
-				up.pushed = false;
 			} else {              //normal downvote
 				vote_records[name] = vote_records[name] ? vote_records[name]-1 : -1;
-				down.pushed = true;
-				up.pushed = false; //unnecessary?
 			}
 		}
 		update_vote_records(name);
@@ -220,31 +208,23 @@
 	function handle_upvote_comment(e) {
 		up = e.target;
 		down = e.target.parentNode.children[1];
-		up.setAttribute("pushed", true);
-		down.setAttribute("pushed", false);
 		handle_vote(e.target.username, up, down, true);
 	}
 	function handle_downvote_comment(e) {
 		up = e.target.parentNode.children[0];
 		down = e.target;
-		up.setAttribute("pushed", false);
-		down.setAttribute("pushed", true);
 		handle_vote(e.target.username, up, down, false);
 	}
 	function handle_upvote_submission(e) {
-		name = submitter_name.textContent;
+		name = document.getElementsByClassName("url-truncated")[0].textContent;
 		up = e.target;
 		down = e.target.parentNode.children[1];
-		up.setAttribute("pushed", true);
-		down.setAttribute("pushed", false);
 		handle_vote(name, up, down, true);
 	}
 	function handle_downvote_submission(e) {
-		name = submitter_name.textContent;
+		name = document.getElementsByClassName("url-truncated")[0].textContent;
 		up = e.target.parentNode.children[0];
 		down = e.target;
-		up.setAttribute("pushed", false);
-		down.setAttribute("pushed", true);
 		handle_vote(name, up, down, false);
 	}
 
@@ -262,6 +242,10 @@
 		//add_css("#image-title{opacity:0}");
 		window.fade_timer = window.setTimeout(function(e) { fade_to(te, 1, 0.1) }, config_hide_time.value);
 		te.addEventListener("mouseover", function(e) { fade_to(te, 1, 0.1) }, false);
+	}
+
+	function button_is_pushed(b) {
+		return b.className.indexOf("pushed") !== -1;
 	}
 
 	function floating_control_expand() {
@@ -334,8 +318,6 @@
 						submitter_name.style.width = "inherit";*/
 					} else if (e.target.className.indexOf("title") !== -1 && e.target.className.indexOf("positive") !== -1) {
 						//it's non-intuitive, but I think this is the most efficient reliable way to detect that we've changed images.
-						for (var i = 0; i < arrows.length; i++)
-							arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
 						//add tag to submitter's name
 						subm = document.getElementById("stats-submit-source");
 						if (subm && subm.children.length > 0) {
@@ -362,7 +344,6 @@
 				arrows[i].addEventListener("click", handle_upvote_submission);
 			else
 				arrows[i].addEventListener("click", handle_downvote_submission);
-			arrows[i].pushed = arrows[i].className.indexOf("pushed") !== -1;
 		}
 		//hide title
 		if (config_hide.checked) {
