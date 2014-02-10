@@ -24,7 +24,7 @@
 */
 
 (function(){
-	var version = "2.1.2";
+	var version = "2.1.3";
 
 	function check_version() {
 		version_info = JSON.parse(localStorage["version_info"] || "{}");
