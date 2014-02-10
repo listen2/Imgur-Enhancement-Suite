@@ -155,10 +155,10 @@
 				tagline = create_tagline(user.textContent);
 				user.parentNode.insertBefore(tagline, user.nextSibling);
 				//attach arrow click handlers
-				user.parentNode.parentNode.previousSibling.children[0].addEventListener("click", handle_upvote_comment) 
-				user.parentNode.parentNode.previousSibling.children[0].username = user.textContent;	//for convenience
-				user.parentNode.parentNode.previousSibling.children[1].addEventListener("click", handle_downvote_comment)
-				user.parentNode.parentNode.previousSibling.children[1].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.parentNode.children[1].children[0].addEventListener("click", handle_upvote_comment) 
+				user.parentNode.parentNode.parentNode.children[1].children[0].username = user.textContent;	//for convenience
+				user.parentNode.parentNode.parentNode.children[1].children[1].addEventListener("click", handle_downvote_comment)
+				user.parentNode.parentNode.parentNode.children[1].children[1].username = user.textContent;	//for convenience
 			} else {
 				tag_comment(t.children[i]);
 			}
